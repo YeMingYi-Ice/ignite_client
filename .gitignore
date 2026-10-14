@@ -1,0 +1,5 @@
+node_modules/
+build/
+game/latest.html
+game/latest.js
+game/build_artefacts.js
