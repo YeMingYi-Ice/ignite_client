@@ -1,14 +1,10 @@
 import ModUtils, { insert } from "../modUtils.js"
 
-// Name rendering patches - Display density of other players & Hide bot names features
-// + prepend team marker for e-ink readability
-
 export default (/** @type {ModUtils} */ { modifyCode, waitForMinification, matchCode, replaceOne }) => {
 
   const { placeBalanceAbove } = matchCode(`aLT += Math.floor(0.78 * fontSize);
     if (placeBalanceAbove) {/*...*/}`)
 
-  // Balance rendering; Renders density when the "Reverse Name/Balance" setting is off (default)
   modifyCode(
     `function aLY(ctx, i, fontSize, x, y, aLU) {
     var a4f = playerData.a4f[i];
@@ -44,21 +40,15 @@ export default (/** @type {ModUtils} */ { modifyCode, waitForMinification, match
   )
 
   waitForMinification(() => {
-    // Name rendering; Renders density when the "Reverse Name/Balance" setting is on
-    // also powers the feature for hiding bot names
-    // + prepend team marker for e-ink readability
     replaceOne(
       /(function \w+\((?<i>\w+),(?<fontSize>\w+),(?<x>\w+),(?<y>\w+),(?<canvas>\w+)\){)(\6\.fillText\((?<playerData>\w+)\.(?<playerNames>\w+)\[\2\],\4,\5\)),(\2<(?<game>\w+)\.(?<gHumans>\w+)&&2!==\8\.(?<playerStates>\w+)\[[^}]+)}/g,
       `$1 var ___id = $2;
         var ___name = $<playerData>.$<playerNames>[___id];
-        if (__fx.settings.showTeamLabels && $<game>.gIsTeamGame && ___id < $<game>.$<gHumans>
-            && typeof bj !== "undefined" && bj && bj.fX) {
-            var __tlT = bj.fX[___id];
-            var __tlTag = ["","红","绿","蓝","黄","粉","青","白","黑"][__tlT] || "";
-            if (__tlTag) ___name = "[" + __tlTag + "]" + ___name;
-        }
+        var ___t = (typeof bj !== "undefined" && bj && bj.fX) ? bj.fX[___id] : 0;
+        var ___tag = ["","红","绿","蓝","黄","粉","青","白","黑"][___t] || "";
+        var ___newName = ___tag ? ("[" + ___tag + "]" + ___name) : ___name;
         var showName = $<i> < $<game>.$<gHumans> || !__fx.settings.hideBotNames;
-        if (showName) $<canvas>.fillText(___name, $<x>, $<y>), $10;
+        if (showName) $<canvas>.fillText(___newName, $<x>, $<y>), $10;
         ${placeBalanceAbove} && __fx.settings.showPlayerDensity && (
             __fx.settings.coloredDensity && ($<canvas>.fillStyle = __fx.utils.textStyleBasedOnDensity(___id)),
             $<canvas>.fillText(__fx.utils.getDensity(___id), $<x>, showName ? $<y> + $<fontSize> : $<y>)
