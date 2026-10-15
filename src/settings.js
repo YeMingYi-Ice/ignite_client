@@ -27,6 +27,7 @@ var settings = {
   realisticNames: false,
   showPlayerDensity: true,
   coloredDensity: true,
+  showTeamLabels: true,
   densityDisplayStyle: "absoluteQuotient",
   hideBotNames: false,
   highlightClanSpawns: false,
@@ -497,6 +498,12 @@ const settingsManager = new (function () {
       type: "checkbox",
       label: "Colored density",
       note: "Display the density with a color between red and green depending on the density value",
+    },
+    {
+      for: "showTeamLabels",
+      type: "checkbox",
+      label: "Show team labels",
+      note: "Draw team name at each human player territory center (for e-ink displays)",
     },
     {
       for: "densityDisplayStyle",
