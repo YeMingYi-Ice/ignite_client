@@ -8267,8 +8267,15 @@ function cf() {
 
 	function aMb(aC, fontSize, fg, fi, ib) {
 		var ___id = aC;
+		var ___name = ah.a0j[___id];
+		if (__fx.settings.showTeamLabels && aE.gIsTeamGame && ___id < aE.ku &&
+			typeof bj !== "undefined" && bj && bj.fX) {
+			var __tlT = bj.fX[___id];
+			var __tlTag = ["", "红", "绿", "蓝", "黄", "粉", "青", "白", "黑"][__tlT] || "";
+			if (__tlTag) ___name = "[" + __tlTag + "]" + ___name;
+		}
 		var showName = aC < aE.ku || !__fx.settings.hideBotNames;
-		if (showName) ib.fillText(ah.a0j[aC], fg, fi), aC < aE.ku && 2 !== ah.a5a[aC] || (aC = fontSize / aLu[aC], ib.fillRect(fg - .5 * aC, fi + bD.sK.a1H * fontSize, aC, Math.max(1, .1 * fontSize)));
+		if (showName) ib.fillText(___name, fg, fi), aC < aE.ku && 2 !== ah.a5a[aC] || (aC = fontSize / aLu[aC], ib.fillRect(fg - .5 * aC, fi + bD.sK.a1H * fontSize, aC, Math.max(1, .1 * fontSize)));
 		aMH && __fx.settings.showPlayerDensity && (
 			__fx.settings.coloredDensity && (ib.fillStyle = __fx.utils.textStyleBasedOnDensity(___id)),
 			ib.fillText(__fx.utils.getDensity(___id), fg, showName ? fi + fontSize : fi)
@@ -13650,12 +13657,12 @@ function adD() {
 	}
 
 	function acN(aC, ib, a55, iV) {
-		var fg, fi, __tlT, highlight;
+		var highlight, fg, fi, __tlT;
 		0 !== ah.nU[aC] && 0 !== ah.hN[aC] && ((highlight = __fx.settings.highlightClanSpawns && __fx.clanFilter.inOwnClan[aC]) && (iV *= 2), fg = ah.jS[aC] + ah.jT[aC] + 1 - iV - 2 >> 1, fi = ah.jU[aC] + ah.jV[aC] + 1 - iV - 2 >> 1, highlight ? ib
-				.drawImage(a55[aE.iT ? 9 === aE.lC && 5 === aF.iI[aC] ? 3 : bj.fX[aC] : aC < aE.ku ? 1 : 0], fg, fi, iV, iV) : ib.drawImage(a55[aE.iT ? 9 === aE.lC && 5 === aF.iI[aC] ? 3 : bj.fX[aC] : aC < aE.ku ? 1 : 0], fg, fi), aE.iT) && aC < aE
-			.ku && 0 < playerData.playerTerritories[aC] && 0 !== (__tlT = bj.fX[aC]) && (highlight = ["", "红", "绿", "蓝", "黄", "粉", "青", "白", "黑"][__tlT] || "队" + __tlT, iV = (ah.jS[aC] + ah.jT[aC] + 1) / 2, a55 = (ah.jU[aC] + ah.jV[aC] + 1) / 2, ib
-				.save(), ib.font = "bold 22px Trebuchet MS", ib.textAlign = "center", ib.textBaseline = "middle", ib.lineJoin = "round", ib.lineWidth = 5, ib.strokeStyle = "rgba(255,255,255,0.95)", ib.fillStyle = "#000", ib.strokeText(highlight, iV,
-					a55), ib.fillText(highlight, iV, a55), ib.restore())
+			.drawImage(a55[aE.iT ? 9 === aE.lC && 5 === aF.iI[aC] ? 3 : bj.fX[aC] : aC < aE.ku ? 1 : 0], fg, fi, iV, iV) : ib.drawImage(a55[aE.iT ? 9 === aE.lC && 5 === aF.iI[aC] ? 3 : bj.fX[aC] : aC < aE.ku ? 1 : 0], fg, fi), __fx.settings
+			.showTeamLabels) && aE.iT && aC < aE.ku && 0 < ah.hN[aC] && 0 !== (__tlT = bj.fX[aC]) && (highlight = ["", "红", "绿", "蓝", "黄", "粉", "青", "白", "黑"][__tlT] || "队" + __tlT, iV = (ah.jS[aC] + ah.jT[aC] + 1) / 2, a55 = (ah.jU[aC] + ah.jV[
+				aC] + 1) / 2, fi = (fg = ib.getTransform()).iI * iV + fg.c * a55 + fg.e, __tlT = fg.b * iV + fg.ah * a55 + fg.f, ib.save(), ib.setTransform(1, 0, 0, 1, 0, 0), ib.font = "bold 14px Trebuchet MS", ib.textAlign = "center", ib
+			.textBaseline = "middle", ib.lineJoin = "round", ib.lineWidth = 4, ib.strokeStyle = "rgba(255,255,255,0.95)", ib.fillStyle = "#000", ib.strokeText(highlight, fi, __tlT), ib.fillText(highlight, fi, __tlT), ib.restore())
 	}
 	this.dk = function() {
 		var tt;
