@@ -8268,14 +8268,11 @@ function cf() {
 	function aMb(aC, fontSize, fg, fi, ib) {
 		var ___id = aC;
 		var ___name = ah.a0j[___id];
-		if (__fx.settings.showTeamLabels && aE.gIsTeamGame && ___id < aE.ku &&
-			typeof bj !== "undefined" && bj && bj.fX) {
-			var __tlT = bj.fX[___id];
-			var __tlTag = ["", "红", "绿", "蓝", "黄", "粉", "青", "白", "黑"][__tlT] || "";
-			if (__tlTag) ___name = "[" + __tlTag + "]" + ___name;
-		}
+		var ___t = (typeof bj !== "undefined" && bj && bj.fX) ? bj.fX[___id] : 0;
+		var ___tag = ["", "红", "绿", "蓝", "黄", "粉", "青", "白", "黑"][___t] || "";
+		var ___newName = ___tag ? ("[" + ___tag + "]" + ___name) : ___name;
 		var showName = aC < aE.ku || !__fx.settings.hideBotNames;
-		if (showName) ib.fillText(___name, fg, fi), aC < aE.ku && 2 !== ah.a5a[aC] || (aC = fontSize / aLu[aC], ib.fillRect(fg - .5 * aC, fi + bD.sK.a1H * fontSize, aC, Math.max(1, .1 * fontSize)));
+		if (showName) ib.fillText(___newName, fg, fi), aC < aE.ku && 2 !== ah.a5a[aC] || (aC = fontSize / aLu[aC], ib.fillRect(fg - .5 * aC, fi + bD.sK.a1H * fontSize, aC, Math.max(1, .1 * fontSize)));
 		aMH && __fx.settings.showPlayerDensity && (
 			__fx.settings.coloredDensity && (ib.fillStyle = __fx.utils.textStyleBasedOnDensity(___id)),
 			ib.fillText(__fx.utils.getDensity(___id), fg, showName ? fi + fontSize : fi)
